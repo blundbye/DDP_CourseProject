@@ -1,0 +1,61 @@
+---
+title: "DDP Course Project: Shiny Application and Reproducible Pitch"
+author: "BNL"
+date: "19 jul 2017"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+
+This presentation was built as part of an assignment for the course **Developing Data Products** as part of the Coursera **Data Science Specialization**.
+
+The app developed as a part of this assignment is avalilable at: <https://blundbye.shinyapps.io/Course_project_week4/>.
+
+The source code for the app (the ui.R and server.R files) are available on the GitHub repo: <https://github.com/blundbye/DDP_CourseProject/>.
+
+## Web Application Functionality
+
+- This app generates the linear fit of *Price* vs. *Carat mass* from a sample set of data points from the *diamonds* data set.
+- In order to get the fitted values (the red line) the user has to brush over at least 5 observations.
+- The app then calculates and shows the slope and intercept of the fitted line in the side panel.
+- The user can also select the level(s) of quality of the diamonds
+
+## The Data Input
+
+A description of the diamonds data set can be found [Here](http://ggplot2.tidyverse.org/reference/diamonds.html).
+
+```{r, message=FALSE, warning=FALSE}
+# load data
+library(plotly)
+data("diamonds")
+```
+
+As can be seen below the data set consist of 53.940 rows and 10 variables:
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dim(diamonds)
+```
+
+Since that probably wil be too much data for our app to perform well, we'll use a sample of just 100 observations (and we only care of diamonds with af carat greater than 0.5):
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+set.seed(2017-07-17)
+d <- diamonds[diamonds$carat > .5,][sample(nrow(diamonds[diamonds$carat > .5,]), 100), ]
+head(d)
+```
+
+
+## Snapshot of the app
+
+```{r, echo=FALSE}
+library(png)
+library(grid)
+snap <- readPNG("C:/Privat/Uddannelse/Coursera/Data_Products/Course_project_week4/snapshot.png")
+ grid.raster(snap)
+```
+
+
